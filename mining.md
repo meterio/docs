@@ -143,19 +143,19 @@ For additional documentation on how to configure coins and their different algor
 
 There is a json config file `meter.json` in the `pool_configs` sub-directory. Make sure to configure the appropriate fields in this file, especially the `rewardBeneficiary` and the `daemon`/`daemons` fields.
 
-In the following example, the pool owner's Meter address is `0a05c2d862ca051010698b69b54278cbaf945ccb` (no 0x in the beginning), the `rewardBeneficiary` should be configured accordingly.  In addition, the mining pool has to connect to a coin daemon (full node) on the Meter network. We will use a full node on the testnet （18.236.153.136）.  The value for Meter in the `daemons` section should be configured as follows:
+In the following example, the pool owner's Meter address is `0a05c2d862ca051010698b69b54278cbaf945ccb` (no 0x in the beginning), the `rewardBeneficiary` should be configured accordingly.  In addition, the mining pool has to connect to a coin daemon (full node) on the Meter network. We will use one of the full nodes on the testnet （n01.meter.io）.  The value for Meter in the `daemons` section should be configured as follows:
 
 ```js
 [
     {
-        "host": "test.meter.io",
+        "host": "n01.meter.io",
         "port": 8332,
         "user": "testuser",
         "password": "testpass"
     }
 ]
 ```
-There are many other fields in `meter.json`.  We could ignore them for now as  only limited functions was ported in the current Nomp implementation for Meter.
+There are many other fields in `meter.json`.  We could ignore them for now as only limited functions was ported in the current Nomp implementation for Meter.
 
 For more information on these configuration options see the [pool module documentation](https://github.com/meterio/meter-stratum-pool#module-usage).
 
