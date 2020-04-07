@@ -55,13 +55,14 @@ stratum+tcp://54.184.235.97:3256
 !> BE AWARE NO REWARD will be distributed from these pools, as the logic has not been implemented yet.
 
 The following are the rough production parameters for different mining hardware on the Meter testnet, tuned to 1 meter = 10 kwh on an Antminer S9:
+The following are the rough production parameters for different mining hardware on the Meter testnet, tuned to 1 meter = 10 kwh on an Antminer S9.  On mainnet, the power efficiency start from around 60 and follow a smoothed Moore's Law type of curve.
 
 |                      | Power | Hash | Efficiency | Meter/Day | Margin Index |
 |----------------------|-------|------|------------|-----------|--------------|
-| AntMiner S9          | 1323  | 13.5 | 98         | 31.75     | 1.00         |
-| WhatsMiner M10       | 3500  | 55   | 63.64      | 129.36    | 1.54         |
-| Inno Silicon T3+ 52T | 2200  | 52   | 42.31      | 79.42     | 2.32         |
-| AntMiner S17Pro      | 2094  | 53   | 39.51      | 80.95     | 2.48         |
+| AntMiner S9          | 1323  | 13.5 | 98         | 3.175     | 1.00         |
+| WhatsMiner M10       | 3500  | 55   | 63.64      | 12.94     | 1.54         |
+| Inno Silicon T3+ 52T | 2200  | 52   | 42.31      | 7.94      | 2.32         |
+| AntMiner S17Pro      | 2094  | 53   | 39.51      | 8.095     | 2.48         |
 
 These adaption speed to hash rate changes are still relatively slow on the test net. However, closer to the mainnet launch, parameters will be tuned to more efficient mining hardware, and faster response speed.
 
@@ -143,19 +144,29 @@ For additional documentation on how to configure coins and their different algor
 
 There is a json config file `meter.json` in the `pool_configs` sub-directory. Make sure to configure the appropriate fields in this file, especially the `rewardBeneficiary` and the `daemon`/`daemons` fields.
 
-In the following example, the pool owner's Meter address is `0a05c2d862ca051010698b69b54278cbaf945ccb` (no 0x in the beginning), the `rewardBeneficiary` should be configured accordingly.  In addition, the mining pool has to connect to a coin daemon (full node) on the Meter network. We will use a full node on the testnet （18.236.153.136）.  The value for Meter in the `daemons` section should be configured as follows:
+In the following example, the pool owner's Meter address is `0a05c2d862ca051010698b69b54278cbaf945ccb` (no 0x in the beginning), the `rewardBeneficiary` should be configured accordingly.  In addition, the mining pool has to connect to a coin daemon (full node) on the Meter network. We will use one of the full nodes on the testnet （n01.meter.io）.  The value for Meter in the `daemons` section should be configured as follows:
 
 ```js
-[
-    {
-        "host": "test.meter.io",
-        "port": 8332,
-        "user": "testuser",
-        "password": "testpass"
-    }
-]
+
+    ...
+
+    "rewardBeneficiary": "0a05c2d862ca051010698b69b54278cbaf945ccb",
+
+    ...
+
+    "daemons": [
+        {
+            "host": "n01.meter.io",
+            "port": 8332,
+            "user": "testuser",
+            "password": "testpass"
+        }
+    ],
+
+    ...
+
 ```
-There are many other fields in `meter.json`.  We could ignore them for now as  only limited functions was ported in the current Nomp implementation for Meter.
+There are many other fields in `meter.json`.  We could ignore them for now as only limited functions was ported in the current Nomp implementation for Meter.
 
 For more information on these configuration options see the [pool module documentation](https://github.com/meterio/meter-stratum-pool#module-usage).
 
