@@ -64,22 +64,17 @@ Follow [this guide](https://www.bitcoin.com/get-started/how-to-setup-a-bitcoin-a
 
 ## The Meter Mining Pool
 
-Meter is actively working with mining pool providers for future mining support. We have also setup two dedicated Meter mining pools for testing purpose:
+Meter is actively working with mining pool providers for future mining support. We have provided a [mining pool sample implementation](https://github.com/meterio/meter-nomp).  This implementation can be used for solo mining, but is by no means a general purpose mining pool as it doesn't have reward distribution mechanism.
 
+The following are the rough production parameters for different mining hardware on the Meter testnet, tuned to 1 meter = 10 kwh on an underclocked WhatsMiner M10:
+Daily MTR production per TH/s is 0.144
 
-stratum+tcp://34.222.111.82:3256
-stratum+tcp://54.184.235.97:3256
-
-**BE AWARE** NO REWARD will be distributed from these pools, as the logic has not been implemented yet. For real mining please setup private mining pools.
-
-The following are the rough production parameters for different mining hardware on the Meter testnet, tuned to 1 meter = 10 kwh on an Antminer S9:
-
-|                      | Power | Hash | Efficiency | Meter/Day | Margin Index |
-|----------------------|-------|------|------------|-----------|--------------|
-| AntMiner S9          | 1323  | 13.5 | 98         | 31.75     | 1.00         |
-| WhatsMiner M10       | 3500  | 55   | 63.64      | 129.36    | 1.54         |
-| Inno Silicon T3+ 52T | 2200  | 52   | 42.31      | 79.42     | 2.32         |
-| AntMiner S17Pro      | 2094  | 53   | 39.51      | 80.95     | 2.48         |
+|                      | Power | Hash | Efficiency | Meter/Day |
+|----------------------|-------|------|------------|-----------|
+| AntMiner S9          | 1323  | 13.5 | 98         | 1.94      |
+| WhatsMiner M21S      | 3240  | 54   | 60         | 7.78      |
+| Inno Silicon T3+ 52T | 2200  | 52   | 42         | 7.49      |
+| AntMiner S17Pro      | 2094  | 53   | 40         | 7.63      |
 
 These adaption speed to hash rate changes are still relatively slow on the test net. However, closer to the mainnet launch, parameters will be tuned to more efficient mining hardware, and faster response speed.
 
@@ -132,31 +127,6 @@ git clone https://github.com/meterio/meter-nomp.git
 cd meter-nomp
 npm install
 ```
-
-### Portal Configuration
-
-Inside the `config_example.json` file, ensure the default configuration will work for your environment, then copy the file to `config.json`.
-
-```js
-"redis": {
-    "host": "127.0.0.1",
-    "port": 6379
-}
-```
-
-### Coin Configuration
-
-Inside the `coins` directory, ensure that a json file exists for Meter coin, and if no create it. Here is an example of what the file should look like:
-
-```js
-{
-    "name": "Meter",
-    "symbol": "MTR",
-    "algorithm": "sha256",
-}
-```
-
-For additional documentation on how to configure coins and their different algorithms see [these instructions](https://github.com/meterio/meter-stratum-pool/blob/master/README.md#module-usage).
 
 ### Pool Configuration
 
