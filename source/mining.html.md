@@ -66,15 +66,8 @@ Follow [this guide](https://www.bitcoin.com/get-started/how-to-setup-a-bitcoin-a
 
 Meter is actively working with mining pool providers for future mining support. We have provided a [mining pool sample implementation](https://github.com/meterio/meter-nomp).  This implementation can be used for solo mining, but is by no means a general purpose mining pool as it doesn't have reward distribution mechanism.
 
-The following are the rough production parameters for different mining hardware on the Meter testnet, tuned to 1 meter = 10 kwh on an underclocked WhatsMiner M10:
-Daily MTR production per TH/s is 0.144
-
-|                      | Power | Hash | Efficiency | Meter/Day |
-|----------------------|-------|------|------------|-----------|
-| AntMiner S9          | 1323  | 13.5 | 98         | 1.94      |
-| WhatsMiner M21S      | 3240  | 54   | 60         | 7.78      |
-| Inno Silicon T3+ 52T | 2200  | 52   | 42         | 7.49      |
-| AntMiner S17Pro      | 2094  | 53   | 40         | 7.63      |
+The following are the rough production parameters for different mining hardware on the Meter testnet, tuned to 1 meter = 10 kwh for a miner with 53 W/T energy efficiency.  The system has a built-in smooth curve that will reduce this parameter by half every 18months:
+Daily MTR production per TH/s is 0.123 when the mainnet launches initially and will go down each day.  
 
 These adaption speed to hash rate changes are still relatively slow on the test net. However, closer to the mainnet launch, parameters will be tuned to more efficient mining hardware, and faster response speed.
 
@@ -137,13 +130,15 @@ In the following example, the pool owner's Meter address is `0a05c2d862ca0510106
 ```js
 [
     {
-        "host": "test.meter.io",
+        "host": "c01.meter.io",
         "port": 8332,
         "user": "testuser",
         "password": "testpass"
     }
 ]
 ```
+c01.meter.io is a node we provided for testing only, its availability is not guaranteed.  If you are running a pool, you should be running a full node on Meter mainnet (Please refer to the mainnet full node tutorial on Github).
+
 There are many other fields in `meter.json`.  We could ignore them for now as  only limited functions was ported in the current Nomp implementation for Meter.
 
 For more information on these configuration options see the [pool module documentation](https://github.com/meterio/meter-stratum-pool/blob/master/README.md#module-usage).
