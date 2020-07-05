@@ -288,57 +288,10 @@
 
 <p>Follow <a href="https://www.bitcoin.com/get-started/how-to-setup-a-bitcoin-asic-miner-and-what-they-are">this guide</a> on installing and configuring your ASICs.</p>
 <h2 id='the-meter-mining-pool'>The Meter Mining Pool</h2>
-<p>Meter is actively working with mining pool providers for future mining support. We have also setup two dedicated Meter mining pools for testing purpose:</p>
-<pre class="highlight plaintext"><code>stratum+tcp://34.222.111.82:3256
-stratum+tcp://54.184.235.97:3256
-</code></pre>
-<p>!&gt; BE AWARE NO REWARD will be distributed from these pools, as the logic has not been implemented yet.</p>
+<p>Meter is actively working with mining pool providers for future mining support. We have provided a <a href="https://github.com/meterio/meter-nomp">mining pool sample implementation</a>.  This implementation can be used for solo mining, but is by no means a general purpose mining pool as it doesn&#39;t have reward distribution mechanism.</p>
 
-<p>The following are the rough production parameters for different mining hardware on the Meter testnet, tuned to 1 meter = 10 kwh on an Antminer S9:</p>
-
-<table><thead>
-<tr>
-<th></th>
-<th>Power</th>
-<th>Hash</th>
-<th>Efficiency</th>
-<th>Meter/Day</th>
-<th>Margin Index</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>AntMiner S9</td>
-<td>1323</td>
-<td>13.5</td>
-<td>98</td>
-<td>31.75</td>
-<td>1.00</td>
-</tr>
-<tr>
-<td>WhatsMiner M10</td>
-<td>3500</td>
-<td>55</td>
-<td>63.64</td>
-<td>129.36</td>
-<td>1.54</td>
-</tr>
-<tr>
-<td>Inno Silicon T3+ 52T</td>
-<td>2200</td>
-<td>52</td>
-<td>42.31</td>
-<td>79.42</td>
-<td>2.32</td>
-</tr>
-<tr>
-<td>AntMiner S17Pro</td>
-<td>2094</td>
-<td>53</td>
-<td>39.51</td>
-<td>80.95</td>
-<td>2.48</td>
-</tr>
-</tbody></table>
+<p>The following are the rough production parameters for different mining hardware on the Meter testnet, tuned to 1 meter = 10 kwh for a miner with 53 W/T energy efficiency.  The system has a built-in smooth curve that will reduce this parameter by half every 18months:
+Daily MTR production per TH/s is 0.123 when the mainnet launches initially and will go down each day.  </p>
 
 <p>These adaption speed to hash rate changes are still relatively slow on the test net. However, closer to the mainnet launch, parameters will be tuned to more efficient mining hardware, and faster response speed.</p>
 
@@ -380,34 +333,21 @@ stratum+tcp://54.184.235.97:3256
 <pre class="highlight shell"><code>git clone https://github.com/meterio/meter-nomp.git
 <span class="nb">cd </span>meter-nomp
 npm install
-</code></pre><h3 id='portal-configuration'>Portal Configuration</h3>
-<p>Inside the <code>config_example.json</code> file, ensure the default configuration will work for your environment, then copy the file to <code>config.json</code>.</p>
-<pre class="highlight javascript"><code><span class="s2">"redis"</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">"host"</span><span class="p">:</span> <span class="s2">"127.0.0.1"</span><span class="p">,</span>
-    <span class="s2">"port"</span><span class="p">:</span> <span class="mi">6379</span>
-<span class="p">}</span>
-</code></pre><h3 id='coin-configuration'>Coin Configuration</h3>
-<p>Inside the <code>coins</code> directory, ensure that a json file exists for Meter coin, and if no create it. Here is an example of what the file should look like:</p>
-<pre class="highlight javascript"><code><span class="p">{</span>
-    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Meter"</span><span class="p">,</span>
-    <span class="s2">"symbol"</span><span class="p">:</span> <span class="s2">"MTR"</span><span class="p">,</span>
-    <span class="s2">"algorithm"</span><span class="p">:</span> <span class="s2">"sha256"</span><span class="p">,</span>
-<span class="p">}</span>
-</code></pre>
-<p>For additional documentation on how to configure coins and their different algorithms see <a href="https://github.com/meterio/meter-stratum-pool/blob/master/README.md#module-usage">these instructions</a>.</p>
-<h3 id='pool-configuration'>Pool Configuration</h3>
+</code></pre><h3 id='pool-configuration'>Pool Configuration</h3>
 <p>There is a json config file <code>meter.json</code> in the <code>pool_configs</code> sub-directory. Make sure to configure the appropriate fields in this file, especially the <code>rewardBeneficiary</code> and the <code>daemon</code>/<code>daemons</code> fields.</p>
 
-<p>In the following example, the pool owner&#39;s Meter address is <code>0a05c2d862ca051010698b69b54278cbaf945ccb</code> (no 0x in the beginning), the <code>rewardBeneficiary</code> should be configured accordingly.  In addition, the mining pool has to connect to a coin daemon (full node) on the Meter network. We will use a full node on the testnet （18.236.153.136）.  The value for Meter in the <code>daemons</code> section should be configured as follows:</p>
+<p>In the following example, the pool owner&#39;s Meter address is <code>0a05c2d862ca051010698b69b54278cbaf945ccb</code> (no 0x in the beginning), the <code>rewardBeneficiary</code> should be configured accordingly.  In addition, the mining pool has to connect to a coin daemon (full node) on the Meter network. We will use a full node on the testnet.  The value for Meter in the <code>daemons</code> section should be configured as follows:</p>
 <pre class="highlight javascript"><code><span class="p">[</span>
     <span class="p">{</span>
-        <span class="s2">"host"</span><span class="p">:</span> <span class="s2">"test.meter.io"</span><span class="p">,</span>
+        <span class="s2">"host"</span><span class="p">:</span> <span class="s2">"c04.meter.io"</span><span class="p">,</span>
         <span class="s2">"port"</span><span class="p">:</span> <span class="mi">8332</span><span class="p">,</span>
         <span class="s2">"user"</span><span class="p">:</span> <span class="s2">"testuser"</span><span class="p">,</span>
         <span class="s2">"password"</span><span class="p">:</span> <span class="s2">"testpass"</span>
     <span class="p">}</span>
 <span class="p">]</span>
 </code></pre>
+<p>c04.meter.io is a node we provided for testing only, its availability is not guaranteed.  If you are running a pool, you should be running a full node on Meter mainnet (Please refer to the mainnet full node tutorial on Github).</p>
+
 <p>There are many other fields in <code>meter.json</code>.  We could ignore them for now as  only limited functions was ported in the current Nomp implementation for Meter.</p>
 
 <p>For more information on these configuration options see the <a href="https://github.com/meterio/meter-stratum-pool/blob/master/README.md#module-usage">pool module documentation</a>.</p>
