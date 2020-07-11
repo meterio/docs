@@ -227,8 +227,13 @@
                   <li>
                     <a href="#mining-hardware" class="toc-h2 toc-link" data-title="Mining Hardware">Mining Hardware</a>
                   </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#8btc-minging-pool-mtr-meter-mining-tutorial" class="toc-h1 toc-link" data-title="8BTC minging pool MTR (Meter) Mining Tutorial">8BTC minging pool MTR (Meter) Mining Tutorial</a>
+              <ul class="toc-list-h2">
                   <li>
-                    <a href="#the-meter-mining-pool" class="toc-h2 toc-link" data-title="The Meter Mining Pool">The Meter Mining Pool</a>
+                    <a href="#the-meter-solo-mining-pool" class="toc-h2 toc-link" data-title="The Meter Solo Mining Pool">The Meter Solo Mining Pool</a>
                   </li>
                   <li>
                     <a href="#running-a-private-mining-pool-on-the-meter-network" class="toc-h2 toc-link" data-title="Running a Private Mining Pool on the Meter Network">Running a Private Mining Pool on the Meter Network</a>
@@ -287,7 +292,35 @@
 <p>Meter uses an account based system, rather than the UTXO based method that Bitcoin uses. However, this difference only amounts to a small change that needs to be made in the configuration.</p>
 
 <p>Follow <a href="https://www.bitcoin.com/get-started/how-to-setup-a-bitcoin-asic-miner-and-what-they-are">this guide</a> on installing and configuring your ASICs.</p>
-<h2 id='the-meter-mining-pool'>The Meter Mining Pool</h2>
+
+<p>The following instructions is from one of Meter&#39;s launch partner mining pool 8btc pool.</p>
+<h1 id='8btc-minging-pool-mtr-meter-mining-tutorial'>8BTC minging pool MTR (Meter) Mining Tutorial</h1>
+<p>** What shall We prepare for mining?**</p>
+
+<ol>
+<li>Hardware: Because MTR mining adopts SHA-256 algorithm, BTC ASIC machines can be used for mining at present.</li>
+<li>Wallet Address: https://www.meter.io/wallets/</li>
+<li>Mining Pool URL:
+mtr.matpool.io:10460
+mtr.matpool.io:10470(for NiceHash)</li>
+</ol>
+
+<p><strong>Example configuration</strong></p>
+
+<p>1.Enter the machine IP address and enter the background configuration interface, or use batch management software to set and configure mining information</p>
+
+<p>2.Enter the &quot;Miner Configuration&quot; interface to configure details.
+URL:mtr.matpool.io:10460
+Worker:Your wallet address.workerName
+Password: this could be anything
+Click (Save&amp;Apply) ,then you could connect to 8btc pool successfully</p>
+
+<p>3.To check the Miner&#39;s Status, enter &quot;Miner Status&quot; to check the Miner&#39;s working status. After setting the change or restarting, please wait for a few minutes and refresh the webpage.</p>
+
+<p>4.For check the revenue of mining, open http://mining.8btc.com/, and click the circle at the top-right corner,then enter your Mtr mining address, in order to monitor your hashrate, revenue, and payouts.</p>
+
+<p>PS:For now we cant show the real-time earnings,but everyday GMT at 2 am we will settle the revenue of your account over the past 24 hours, will show up at GMT 4 am,and pay out before GMT 1 pm.</p>
+<h2 id='the-meter-solo-mining-pool'>The Meter Solo Mining Pool</h2>
 <p>Meter is actively working with mining pool providers for future mining support. We have provided a <a href="https://github.com/meterio/meter-nomp">mining pool sample implementation</a>.  This implementation can be used for solo mining, but is by no means a general purpose mining pool as it doesn&#39;t have reward distribution mechanism.</p>
 
 <p>The following are the rough production parameters for different mining hardware on the Meter testnet, tuned to 1 meter = 10 kwh for a miner with 53 W/T energy efficiency.  The system has a built-in smooth curve that will reduce this parameter by half every 18months:
